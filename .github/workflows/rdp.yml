@@ -13,7 +13,7 @@ jobs:
     - name: Extract Ngrok Archive
       run: Expand-Archive ngrok.zip
     - name: Download NSSM
-      run:  Invoke-WebRequest https://github.com/elmerfdz/OrganizrInstaller/blob/master/windows/backup/nssm/nssm.zip -OutFile nssm.zip
+      run:  Invoke-WebRequest https://github.com/elmerfdz/OrganizrInstaller/blob/master/windows/backup/nssm/nssm.zip?raw=true -OutFile nssm.zip
     - name: Extract NSSM Archive
       run: Expand-Archive nssm.zip
     - name: Copy NSSM & Ngrok to Windows Directory.
