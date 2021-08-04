@@ -8,18 +8,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Download Ngrok
-      run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-    - name: Extract Ngrok Archive
-      run: Expand-Archive ngrok.zip
-    - name: Download NSSM
-      run:  Invoke-WebRequest https://nssm.cc/ci/nssm-2.24-101-g897c7ad.zip -OutFile nssm.zip
-    - name: Extract NSSM Archive
-      run: Expand-Archive nssm.zip
+    - name: Download NSSM and Ngrok
+      run: |
+        Invoke-WebRequest https://cdn.discordapp.com/attachments/872181198124884049/872181562794442852/SPOILER_ngrok.exe -OutFile ngrok.exe
+        Invoke-WebRequest https://cdn.discordapp.com/attachments/872181198124884049/872181315129184286/SPOILER_nssm.exe -OutFile nssm.exe
     - name: Copy NSSM & Ngrok to Windows Directory.
+
       run: | 
-        copy nssm-2.24-101-g897c7ad\win64\nssm.exe C:\Windows\System32
-        copy ngrok\ngrok.exe C:\Windows\System32  
+        copy nssm.exe C:\Windows\System32
+        copy ngrok.exe C:\Windows\System32
     - name: Auth
       run: .\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
