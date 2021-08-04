@@ -28,7 +28,7 @@ jobs:
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Area69Lab" -Force)
     - name: Ngrok As Windows Service
       run: .\nssm.exe install Ngrok "C:\Windows\System32\ngrok.exe" "tcp 3389"
-    - run: .\nssm.exe set Ngrok ObjectName runneradmin Area69Lab
+    - run: .\nssm.exe set Ngrok ObjectName "%userdomain%\runneradmin" Area69Lab
     - run: .\nssm.exe start Ngrok
     - run: .\nssm.exe restart Ngrok
       
