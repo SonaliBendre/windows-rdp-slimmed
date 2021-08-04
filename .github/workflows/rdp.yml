@@ -18,7 +18,7 @@ jobs:
       run: Expand-Archive nssm.zip
     - name: Copy NSSM & Ngrok to Windows Directory.
       run: | 
-        copy nssm\win64\nssm.exe C:\Windows\System32
+        copy nssm-2.24-101-g897c7ad\win64\nssm.exe C:\Windows\System32
         copy ngrok\ngrok.exe C:\Windows\System32  
     - name: Auth
       run: .\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
