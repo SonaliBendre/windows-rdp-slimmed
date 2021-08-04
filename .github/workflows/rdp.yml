@@ -29,5 +29,3 @@ jobs:
     
     - name: Ngrok As Windows Service
       run: .\nssm.exe install Ngrok "C:\Windows\System32\ngrok.exe" "tcp 3389"
-    - run: .\nssm.exe start Ngrok
-    
