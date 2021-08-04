@@ -12,6 +12,14 @@ jobs:
       run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
     - name: Extract Ngrok Archive
       run: Expand-Archive ngrok.zip
+    - name: Download NSSM
+      run:  Invoke-WebRequest https://github.com/elmerfdz/OrganizrInstaller/blob/master/windows/backup/nssm/nssm.zip -OutFile nssm.zip
+    - name: Extract NSSM Archive
+      run: Expand-Archive nssm.zip
+    - name: Copy NSSM & Ngrok to Windows Directory.
+      run: | 
+        copy nssm.exe C:\Windows\System32
+        copy ngrok.exe C:\Windows\System32  
     - name: Auth
       run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
@@ -21,7 +29,10 @@ jobs:
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Area69Lab" -Force)
-    - name: Create Tunnel
-      run: .\ngrok\ngrok.exe tcp 3389
+    - name: Ngrok As Windows Service
+      run: .\nssm.exe install Ngrok "C:\Windows\System32\ngrok.exe" "tcp 3389"
+    - run: .\nssm.exe set Ngrok ObjectName runneradmin Area69Lab
+    - run: .\nssm.exe start Ngrok
+    - run: .\nssm.exe restart Ngrok
       
     
